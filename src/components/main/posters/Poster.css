@@ -1,0 +1,10 @@
+.poster {
+  padding: 0 5px 0;
+  margin-bottom: 25px;
+  border: 3px;
+  border-radius: 15px;
+}
+
+.poster-col {
+  padding: 0;
+}

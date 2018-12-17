@@ -1,0 +1,25 @@
+.header-style {
+    background-color: #474D59;
+}
+
+.img-background {
+    background-color: #474D59;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 30px;
+    margin: 4px 0;
+    padding: 0 0 0 47px;
+}
+
+.globe {
+    font-size: 45px;
+    margin-right: 10px;
+}
+
+.no-padding {
+    padding: 0;
+}

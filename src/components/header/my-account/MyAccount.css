@@ -1,0 +1,17 @@
+.main-button {
+  color: white;
+  padding: 6px 10px ;
+  margin-right: 55px;
+  font-size: 25px;
+  font-weight: 300;
+  border-radius: 5px;
+}
+
+.main-button-p {
+  margin: 0;
+}
+
+.angle-down-style {
+  margin-left: 5px;
+  margin-top: 5px;
+}

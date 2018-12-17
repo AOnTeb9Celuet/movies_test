@@ -1,0 +1,19 @@
+.pagination-main {
+    padding: 50px;
+    font-size: 30px;
+}
+
+.pagination-pages {
+    color: #676A78;
+    background-color: #F2F3F5;
+    border-color: #DADBDF;
+    font-weight: 500;
+}
+
+.pagination-pages-edges {
+    color: #3BB794
+}
+
+.pagination-pages:hover {
+    color: #3BB794;
+}
