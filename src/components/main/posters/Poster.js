@@ -43,10 +43,10 @@ class Poster extends Component {
     return (
       <div className="d-flex justify-content-between">
         <Container fluid>
-          <Row className = 'justify-content-center poster-row'>
+          <Row className="justify-content-center poster-row">
             {this.state.posterUrls.map(p => {
               return (
-                <Col className=" col-6 col-md-3 col-xl-2 poster-col">
+                <Col className="col-6 col-md-3 col-xl-2 poster-col">
                   <img
                     key={p.key}
                     src={p.poster_path}

@@ -1,25 +1,38 @@
 .header-style {
-    background-color: #474D59;
+  background-color: #474d59;
 }
 
 .img-background {
-    background-color: #474D59;
+  background-color: #474d59;
 }
 
 .header-logo {
-    display: flex;
-    align-items: center;
-    color: white;
-    font-size: 30px;
-    margin: 4px 0;
-    padding: 0 0 0 47px;
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 30px;
+  margin: 4px 0;
 }
 
 .globe {
-    font-size: 45px;
-    margin-right: 10px;
+  font-size: 45px;
+  margin-right: 10px;
 }
 
 .no-padding {
-    padding: 0;
+  padding: 0;
+}
+
+.my-acc-style {
+  padding: 0 40px 0;
+}
+
+@media (max-width: 575.98px) {
+  .header-logo {
+    font-size: 20px;
+  }
+
+  .my-acc-style {
+    padding: 0 5px 0 0;
+  }
 }

@@ -13,18 +13,20 @@ export const Header = () => {
   return (
     <header>
       <Navbar
-        fixed="top"
+        fixed = 'top'
         light
-        expand="xs"
-        className="border-bottom border-white header-style justify-content-start no-padding"
+        className="border-bottom border-white justify-content-start no-padding header-style"
         style={{ height: 100 }}
       >
         <Container fluid>
-          <Row noGutters className="position-relative w-100 align-items-center">
-            <Col className="d-none d-lg-flex justify-content-start header-col-style">
+          <Row
+            noGutters
+            className="position-relative w-100 align-items-center my-acc-style"
+          >
+            <Col className="d-flex justify-content-start">
               <Nav className="x-auto" navbar>
                 <NavItem className="d-flex align-items-center">
-                  <NavLink href="/" className = 'no-padding'>
+                  <NavLink href="/" className="no-padding">
                     <div className="header-logo">
                       <FontAwesomeIcon icon="globe" className="globe" /> Movies
                     </div>
@@ -32,7 +34,7 @@ export const Header = () => {
                 </NavItem>
               </Nav>
             </Col>
-            <Col className = 'd-flex justify-content-end'>
+            <Col className="d-flex justify-content-end">
               <MyAccount />
             </Col>
           </Row>

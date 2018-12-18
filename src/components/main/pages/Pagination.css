@@ -1,19 +1,48 @@
 .pagination-main {
-    padding: 50px;
-    font-size: 30px;
+  padding: 50px;
+  font-size: 35px;
 }
 
 .pagination-pages {
-    color: #676A78;
-    background-color: #F2F3F5;
-    border-color: #DADBDF;
-    font-weight: 500;
+  color: #676a78;
+  background-color: #f2f3f5;
+  border-color: #dadbdf;
+  font-weight: 500;
+
 }
 
 .pagination-pages-edges {
-    color: #3BB794
+  color: #3bb794;
 }
 
 .pagination-pages:hover {
-    color: #3BB794;
+  color: #3bb794;
+}
+
+@media (max-width: 414.98px) {
+  .pagination-main {
+    font-size: 15px;
+    padding: 20px;
+  }
+}
+
+@media (min-width: 415px) {
+  .pagination-main {
+    font-size: 20px;
+    padding: 20px;
+  }
+}
+
+@media (min-width: 320px) {
+  .pagination-main {
+    font-size: 13px;
+    padding: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .pagination-main {
+    font-size: 25px;
+    padding: 20px;
+  }
 }

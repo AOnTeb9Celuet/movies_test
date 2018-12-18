@@ -3,3 +3,9 @@
     font-size: 40px;
     color: #676A78;
 }
+
+@media (max-width: 575.98px) {
+    .main-text-p {
+        font-size: 25px;
+    }
+}

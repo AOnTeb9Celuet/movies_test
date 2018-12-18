@@ -8,8 +8,12 @@ import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 library.add(faAngleDown);
 
 export const MyAccount = () => {
-return (
-    <div className = 'align-items-center border main-button'>
-        <p className = 'main-button-p'>My Account <FontAwesomeIcon icon="angle-down" className = 'angle-down-style'/></p>
-    </div>)
-}
+  return (
+    <div className="align-items-center border main-button">
+      <p className="main-button-p">
+        <span className = 'main-button-text'>My Account{" "}</span>
+        <FontAwesomeIcon icon="angle-down" className="angle-down-style" />
+      </p>
+    </div>
+  );
+};
