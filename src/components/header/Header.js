@@ -15,8 +15,8 @@ export const Header = () => {
       <Navbar
         fixed = 'top'
         light
-        className="border-bottom border-white justify-content-start no-padding header-style"
-        style={{ height: 100 }}
+        className="justify-content-start no-padding header-style"
+        style={{ height: 80 }}
       >
         <Container fluid>
           <Row
