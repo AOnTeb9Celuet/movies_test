@@ -1,18 +1,26 @@
-import React from "react";
+import React, { Component } from "react";
 import { Container } from "reactstrap";
+
 
 import { LatestReleases } from "./main-text/LatestReleases";
 import Poster from "./posters/Poster";
 import { Pages } from "./pages/Pagination";
 
+
 import "./MainPage.css";
 
-export const MainPage = () => {
-  return (
-    <Container fluid className="main-page">
-      <LatestReleases />
-      <Poster />
-      <Pages />
-    </Container>
-  );
-};
+class MainPage extends Component {
+  render() {
+
+    return (
+      <Container fluid className="main-page">
+        <LatestReleases />
+        <Poster />
+        <Pages />
+      </Container>
+    );
+  }
+}
+
+
+export default MainPage;

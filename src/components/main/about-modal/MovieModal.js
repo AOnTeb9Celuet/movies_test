@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { Row, Col, div } from "reactstrap";
-import axios from "axios";
+import { Row, Col } from "reactstrap";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { getMovieDetails } from "../../../actions/Actions";
 
 import "./MovieModal.css";
 
@@ -14,52 +16,48 @@ library.add(faArrowAltCircleRight);
 
 class MovieModal extends Component {
   state = {
-    aboutObj: []
+    details: null,
+    pathname: this.props.location.pathname
   };
 
   componentDidMount() {
-    axios
-      .get(
-        "http://api.themoviedb.org/3/movie/now_playing?api_key=ebea8cfca72fdff8d2624ad7bbf78e4c"
-      )
-      .then(response => {
-        const aboutObj = response.data.results.map(a => {
-          return {
-            original_title: a.original_title,
-            overview: a.overview,
-            adult: a.adult,
-            poster_path: a.poster_path,
-            key: a.id,
-            release_date: a.release_date
-          };
-        });
-
-        const newState = Object.assign({}, this.state, { aboutObj: aboutObj });
-
-        this.setState(newState);
-
-        console.log(this.state);
-      });
+    const pathname = this.state.pathname;
+    console.log("getPathname", this.state.pathname);
+    this.props.getMovieDetailsAction(pathname);
   }
 
   render() {
+    if (!this.props.info.data) {
+      return <div>...Loading</div>;
+    }
+
+    const {
+      poster_path,
+      title,
+      release_date,
+      vote_average,
+      adult,
+      overview
+    } = this.props.info.data;
+    const posterPath = `http://image.tmdb.org/t/p/w342${poster_path}`;
+
     return (
       <div className="movie-modal">
         <div
           className="background-img"
-          style={{
-            backgroundImage: `url(${"http://image.tmdb.org/t/p/w342/qIqXrTKCKkfrmTakvTsjlya7OWw.jpg"})`
-          }}
+          style={{ backgroundImage: `url(${posterPath})` }}
         />{" "}
         <Row noGutters>
           <Col className="d-flex justify-content-start">
-            <p className="button-left">
-              <FontAwesomeIcon
-                icon="arrow-alt-circle-left"
-                className="arrow-left"
-              />{" "}
-              Back to list
-            </p>
+            <Link to={"/"}>
+              <p className="button-left">
+                <FontAwesomeIcon
+                  icon="arrow-alt-circle-left"
+                  className="arrow-left"
+                />
+                Back to list
+              </p>
+            </Link>
           </Col>
           <Col className="d-flex justify-content-end">
             <p className="button-right">
@@ -74,7 +72,7 @@ class MovieModal extends Component {
         <Row noGutters>
           <Col lg="4" className="d-flex justify-content-center info-col">
             <img
-              src={`http://image.tmdb.org/t/p/w342/qIqXrTKCKkfrmTakvTsjlya7OWw.jpg`}
+              src={posterPath}
               alt="poster"
               className="img-fluid poster-modal"
             />
@@ -84,20 +82,15 @@ class MovieModal extends Component {
             <p className="d-flex justify-content-end favorite-but">
               <span>Add to favorite</span>
             </p>
-            <p className="info-title">Ant-Man (2015)</p>
+            <p className="info-title">
+              {title} ({release_date})
+            </p>
             <p className="info-s-r-rd">
-              <span className="info-s">Score: 8.2</span>
-              <span className="info-r">Rating: R</span>
-              <span className="info-rd">Release Date: July 17, 2015</span>
+              <span className="info-s">Score: {vote_average}</span>
+              <span className="info-r">Rating: {adult ? "R" : "PG"}</span>
+              <span className="info-rd">Release Date: {release_date}</span>
             </p>
-            <p className="info-about">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur.
-            </p>
+            <p className="info-about">{overview}</p>
           </Col>
         </Row>
       </div>
@@ -105,4 +98,21 @@ class MovieModal extends Component {
   }
 }
 
-export default MovieModal;
+const mapStoreToProps = store => {
+  return {
+    info: store.info,
+    isFetching: store.isFetching,
+    error: store.error
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getMovieDetailsAction: () => dispatch(getMovieDetails())
+  };
+};
+
+export default connect(
+  mapStoreToProps,
+  mapDispatchToProps
+)(MovieModal);

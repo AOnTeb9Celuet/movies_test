@@ -1,58 +1,36 @@
 import React, { Component } from "react";
 import { Col, Row, Container } from "reactstrap";
-import axios from "axios";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { getMoviesInfo } from "../../../actions/Actions";
 
 import "./Poster.css";
 
 class Poster extends Component {
   state = {
-    posterUrls: [],
-    key: ""
+    page: 1
   };
 
   componentDidMount() {
-    axios
-      .get(
-        "http://api.themoviedb.org/3/movie/now_playing?api_key=ebea8cfca72fdff8d2624ad7bbf78e4c"
-      )
-      .then(response => {
-        const posterPath = response.data.results.map(p => {
-          return {
-            poster_path: p.poster_path,
-            key: p.id
-          };
-        });
-
-        const posterUrls = posterPath.map(p => {
-          return {
-            poster_path: `http://image.tmdb.org/t/p/w300${p.poster_path}`,
-            key: p.key
-          };
-        });
-        console.log("posterUrls", posterUrls);
-
-        const newState = Object.assign({}, this.state, {
-          posterUrls: posterUrls
-        });
-
-        this.setState(newState);
-      });
+    this.props.getMoviesInfoAction();
   }
 
   render() {
+    const { data } = this.props.info
     return (
       <div className="d-flex justify-content-between">
         <Container fluid>
           <Row className="justify-content-center poster-row">
-            {this.state.posterUrls.map(p => {
+            {data && data.results.map(p => {
               return (
-                <Col className="col-6 col-md-3 col-xl-2 poster-col">
-                  <img
-                    key={p.key}
-                    src={p.poster_path}
-                    alt={"poster"}
-                    className="poster img-fluid"
-                  />
+                <Col key={p.id} className="col-6 col-md-3 col-xl-2 poster-col">
+                  <Link to={`/${p.id}`}>
+                    <img
+                      src={`http://image.tmdb.org/t/p/w342${p.poster_path}`}
+                      alt="poster"
+                      className="poster img-fluid"
+                    />
+                  </Link>
                 </Col>
               );
             })}
@@ -63,4 +41,22 @@ class Poster extends Component {
   }
 }
 
-export default Poster;
+
+const mapStoreToProps = store => {
+  return {
+    info: store.info,
+    isFetching: store.isFetching,
+    error: store.error
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getMoviesInfoAction: () => dispatch(getMoviesInfo())
+  };
+};
+
+export default connect(
+  mapStoreToProps,
+  mapDispatchToProps
+)(Poster);
