@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { getMovieDetails } from "../../../actions/Actions";
+import { getMovieDetails, clearMovieDetails } from "../../../actions/Actions";
 
 import "./MovieModal.css";
 
@@ -15,19 +15,17 @@ library.add(faArrowAltCircleLeft);
 library.add(faArrowAltCircleRight);
 
 class MovieModal extends Component {
-  state = {
-    details: null,
-    pathname: this.props.location.pathname
-  };
 
   componentDidMount() {
-    const pathname = this.state.pathname;
-    console.log("getPathname", this.state.pathname);
+    const pathname = this.props.location.pathname
     this.props.getMovieDetailsAction(pathname);
   }
 
+  componentWillUnmount() {
+    this.props.clearMovieDetailsAction()
+  }
   render() {
-    if (!this.props.info.data) {
+    if (!this.props.details.data) {
       return <div>...Loading</div>;
     }
 
@@ -38,7 +36,7 @@ class MovieModal extends Component {
       vote_average,
       adult,
       overview
-    } = this.props.info.data;
+    } = this.props.details.data;
     const posterPath = `http://image.tmdb.org/t/p/w342${poster_path}`;
 
     return (
@@ -101,6 +99,7 @@ class MovieModal extends Component {
 const mapStoreToProps = store => {
   return {
     info: store.info,
+    details: store.details,
     isFetching: store.isFetching,
     error: store.error
   };
@@ -108,7 +107,8 @@ const mapStoreToProps = store => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getMovieDetailsAction: () => dispatch(getMovieDetails())
+    getMovieDetailsAction: (pathname) => dispatch(getMovieDetails(pathname)),
+    clearMovieDetailsAction: () => dispatch(clearMovieDetails())
   };
 };
 
