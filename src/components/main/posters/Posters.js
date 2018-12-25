@@ -22,12 +22,18 @@ class Poster extends Component {
     if (e.currentTarget.innerText === "First") {
       this.props.changePageNumberAction(1);
       this.props.getMoviesInfoAction(1);
-    } else if (e.currentTarget.innerText === "Prev") {
+    } else if (e.currentTarget.innerText === "Prev" && this.props.page !== 1) {
       this.props.changePageNumberAction(this.props.page - 1);
       this.props.getMoviesInfoAction(this.props.page - 1);
-    } else if (e.currentTarget.innerText === "Next") {
+    } else if (e.currentTarget.innerText === "Prev" && this.props.page <= 1) {
+      this.props.changePageNumberAction(1);
+      this.props.getMoviesInfoAction(1);
+    } else if (e.currentTarget.innerText === "Next" && this.props.page !== 53) {
       this.props.changePageNumberAction(this.props.page + 1);
       this.props.getMoviesInfoAction(this.props.page + 1);
+    } else if (e.currentTarget.innerText === "Next" && this.props.page >= 53) {
+      this.props.changePageNumberAction(53);
+      this.props.getMoviesInfoAction(53);
     } else if (e.currentTarget.innerText === "Last") {
       this.props.changePageNumberAction(53);
       this.props.getMoviesInfoAction(53);
@@ -82,7 +88,9 @@ class Poster extends Component {
               First
             </PaginationLink>
           </PaginationItem>
-          <PaginationItem>
+          <PaginationItem
+            className={`${this.props.page === 1 ? "page-display-none" : false}`}
+          >
             <PaginationLink
               onClick={this.onPageClick}
               className="pagination-pages"
@@ -114,12 +122,11 @@ class Poster extends Component {
               {this.props.page + 2}
             </PaginationLink>
           </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#" className="pagination-pages">
-              ...
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
+          <PaginationItem
+            className={`${
+              this.props.page === 53 ? "page-display-none" : false
+            }`}
+          >
             <PaginationLink
               onClick={this.onPageClick}
               className="pagination-pages"
