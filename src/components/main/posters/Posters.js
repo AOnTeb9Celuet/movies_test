@@ -19,28 +19,30 @@ class Poster extends Component {
   }
 
   onPageClick = e => {
+    const { page, getMoviesInfoAction, changePageNumberAction } = this.props;
+
     if (e.currentTarget.innerText === "First") {
-      this.props.changePageNumberAction(1);
-      this.props.getMoviesInfoAction(1);
-    } else if (e.currentTarget.innerText === "Prev" && this.props.page !== 1) {
-      this.props.changePageNumberAction(this.props.page - 1);
-      this.props.getMoviesInfoAction(this.props.page - 1);
-    } else if (e.currentTarget.innerText === "Prev" && this.props.page <= 1) {
-      this.props.changePageNumberAction(1);
-      this.props.getMoviesInfoAction(1);
-    } else if (e.currentTarget.innerText === "Next" && this.props.page !== 53) {
-      this.props.changePageNumberAction(this.props.page + 1);
-      this.props.getMoviesInfoAction(this.props.page + 1);
-    } else if (e.currentTarget.innerText === "Next" && this.props.page >= 53) {
-      this.props.changePageNumberAction(53);
-      this.props.getMoviesInfoAction(53);
+      changePageNumberAction(1);
+      getMoviesInfoAction(1);
+    } else if (e.currentTarget.innerText === "Prev" && page !== 1) {
+      changePageNumberAction(page - 1);
+      getMoviesInfoAction(page - 1);
+    } else if (e.currentTarget.innerText === "Prev" && page <= 1) {
+      changePageNumberAction(1);
+      getMoviesInfoAction(1);
+    } else if (e.currentTarget.innerText === "Next" && page !== 53) {
+      changePageNumberAction(page + 1);
+      getMoviesInfoAction(page + 1);
+    } else if (e.currentTarget.innerText === "Next" && page >= 53) {
+      changePageNumberAction(this.props.info.data.total_pages);
+      getMoviesInfoAction(this.props.info.data.total_pages);
     } else if (e.currentTarget.innerText === "Last") {
-      this.props.changePageNumberAction(53);
-      this.props.getMoviesInfoAction(53);
+      changePageNumberAction(this.props.info.data.total_pages);
+      getMoviesInfoAction(this.props.info.data.total_pages);
     } else {
       const pageNum = +e.currentTarget.innerText;
-      this.props.changePageNumberAction(pageNum);
-      this.props.getMoviesInfoAction(pageNum);
+      changePageNumberAction(pageNum);
+      getMoviesInfoAction(pageNum);
     }
   };
 
@@ -48,7 +50,7 @@ class Poster extends Component {
     const { data } = this.props.info;
     return (
       <Container fluid className="main-page">
-        <Row>
+        <Row noGutters>
           <Col>
             <p className="main-text-p">Latest Releases</p>
           </Col>

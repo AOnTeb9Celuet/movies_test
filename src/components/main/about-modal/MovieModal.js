@@ -38,6 +38,7 @@ class MovieModal extends Component {
       overview
     } = this.props.details.data;
     const posterPath = `http://image.tmdb.org/t/p/w342${poster_path}`;
+    const releaseDate = release_date && release_date.slice(0, 4)
 
     return (
       <div className="movie-modal">
@@ -53,13 +54,13 @@ class MovieModal extends Component {
                   icon="arrow-alt-circle-left"
                   className="arrow-left"
                 />
-                Back to list
+                <span>Back to list</span>
               </p>
             </Link>
           </Col>
           <Col className="d-flex justify-content-end">
             <p className="button-right">
-              Next Movie{" "}
+              <span>Next Movie{" "}</span>
               <FontAwesomeIcon
                 icon="arrow-alt-circle-right"
                 className="arrow-right"
@@ -68,7 +69,7 @@ class MovieModal extends Component {
           </Col>
         </Row>
         <Row noGutters>
-          <Col lg="4" className="d-flex justify-content-center info-col">
+          <Col lg="4" xs='6' className="d-flex justify-content-center info-col">
             <img
               src={posterPath}
               alt="poster"
@@ -76,14 +77,14 @@ class MovieModal extends Component {
             />
           </Col>
 
-          <Col lg="7">
+          <Col lg="8" xs='6'>
             <p className="d-flex justify-content-end favorite-but">
               <span>Add to favorite</span>
             </p>
             <p className="info-title">
-              {title} ({release_date})
+              {title} ({releaseDate})
             </p>
-            <p className="info-s-r-rd">
+            <p className="info-s-r-rd justify-content-start">
               <span className="info-s">Score: {vote_average}</span>
               <span className="info-r">Rating: {adult ? "R" : "PG"}</span>
               <span className="info-rd">Release Date: {release_date}</span>

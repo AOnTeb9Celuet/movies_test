@@ -13,7 +13,7 @@ export const Header = () => {
   return (
     <header>
       <Navbar
-        fixed = 'top'
+        fixed="top"
         light
         className="justify-content-start no-padding header-style"
         style={{ height: 80 }}
