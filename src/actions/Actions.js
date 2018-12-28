@@ -7,10 +7,11 @@ import {
   MOVIE_DETAILS_REQUEST,
   MOVIE_DETAILS_SUCCESS,
   MOVIE_DETAILS_CLEAR,
-  CHANGE_PAGE_NUMBER
+  CHANGE_PAGE_NUMBER,
+  CHANGE_PAGINATION_NUMBER
 } from "../constants/constants";
 
-export const getMoviesInfo = (page) => dispatch => {
+export const getMoviesInfo = page => dispatch => {
   dispatch({
     type: MOVIES_INFO_REQUEST
   });
@@ -27,9 +28,9 @@ export const getMoviesInfo = (page) => dispatch => {
     });
 };
 
-export const getMovieDetails = (pathname) => dispatch => {
+export const getMovieDetails = pathname => dispatch => {
   dispatch({
-    type: MOVIE_DETAILS_REQUEST,
+    type: MOVIE_DETAILS_REQUEST
   });
 
   axios
@@ -47,13 +48,20 @@ export const getMovieDetails = (pathname) => dispatch => {
 export const clearMovieDetails = () => {
   return {
     type: MOVIE_DETAILS_CLEAR,
-    payload: {},
-  }
-}
+    payload: {}
+  };
+};
 
 export const changePageNumber = page => {
   return {
     type: CHANGE_PAGE_NUMBER,
-    payload: page,
-  }
-}
+    payload: page
+  };
+};
+
+export const changePaginationNumber = pagination => {
+  return {
+    type: CHANGE_PAGINATION_NUMBER,
+    payload: pagination
+  };
+};

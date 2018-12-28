@@ -15,7 +15,7 @@ library.add(faArrowAltCircleLeft);
 library.add(faArrowAltCircleRight);
 
 class MovieModal extends Component {
-
+  
   componentDidMount() {
     const pathname = this.props.location.pathname
     this.props.getMovieDetailsAction(pathname);

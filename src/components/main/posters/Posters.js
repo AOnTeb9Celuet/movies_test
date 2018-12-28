@@ -9,7 +9,11 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { getMoviesInfo, changePageNumber } from "../../../actions/Actions";
+import {
+  getMoviesInfo,
+  changePageNumber,
+  changePaginationNumber
+} from "../../../actions/Actions";
 
 import "./Posters.css";
 
@@ -19,26 +23,36 @@ class Poster extends Component {
   }
 
   onPageClick = e => {
-    const { page, getMoviesInfoAction, changePageNumberAction } = this.props;
+    const {
+      page,
+      pagination_number,
+      getMoviesInfoAction,
+      changePageNumberAction,
+      changePaginationNumberAction
+    } = this.props;
 
     if (e.currentTarget.innerText === "First") {
       changePageNumberAction(1);
+      changePaginationNumberAction(0);
       getMoviesInfoAction(1);
-    } else if (e.currentTarget.innerText === "Prev" && page !== 1) {
-      changePageNumberAction(page - 1);
-      getMoviesInfoAction(page - 1);
-    } else if (e.currentTarget.innerText === "Prev" && page <= 1) {
-      changePageNumberAction(1);
-      getMoviesInfoAction(1);
-    } else if (e.currentTarget.innerText === "Next" && page !== 53) {
-      changePageNumberAction(page + 1);
-      getMoviesInfoAction(page + 1);
-    } else if (e.currentTarget.innerText === "Next" && page >= 53) {
+    } else if (
+      e.currentTarget.innerText === "Prev" &&
+      page !== 1
+    ) {
+      changePaginationNumberAction(this.props.pagination_number - 1);
+    } else if (
+      e.currentTarget.innerText === "Next" &&
+      page !== this.props.info.data.total_pages
+    ) {
+      changePaginationNumberAction(pagination_number + 1)
+    } else if (e.currentTarget.innerText === "Last" && this.props.info.data.total_pages % 3) {
       changePageNumberAction(this.props.info.data.total_pages);
       getMoviesInfoAction(this.props.info.data.total_pages);
-    } else if (e.currentTarget.innerText === "Last") {
+      changePaginationNumberAction(Math.floor(this.props.info.data.total_pages / 3))
+    } else if (e.currentTarget.innerText === "Last" && !this.props.info.data.total_pages % 3) {
       changePageNumberAction(this.props.info.data.total_pages);
       getMoviesInfoAction(this.props.info.data.total_pages);
+      changePaginationNumberAction(Math.floor(this.props.info.data.total_pages / 3 - 1))
     } else {
       const pageNum = +e.currentTarget.innerText;
       changePageNumberAction(pageNum);
@@ -91,7 +105,11 @@ class Poster extends Component {
             </PaginationLink>
           </PaginationItem>
           <PaginationItem
-            className={`${this.props.page === 1 ? "page-display-none" : false}`}
+            className={`${
+              data && this.props.pagination_number === 0
+                ? "page-display-none"
+                : false
+            }`}
           >
             <PaginationLink
               onClick={this.onPageClick}
@@ -105,28 +123,42 @@ class Poster extends Component {
               onClick={this.onPageClick}
               className="pagination-pages"
             >
-              {this.props.page}
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink
-              onClick={this.onPageClick}
-              className="pagination-pages"
-            >
-              {this.props.page + 1}
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink
-              onClick={this.onPageClick}
-              className="pagination-pages"
-            >
-              {this.props.page + 2}
+              {this.props.pagination_number * 3 + 1}
             </PaginationLink>
           </PaginationItem>
           <PaginationItem
             className={`${
-              this.props.page === 53 ? "page-display-none" : false
+              data && this.props.pagination_number * 3 + 2 > data.total_pages
+                ? "page-display-none"
+                : false
+            }`}
+          >
+            <PaginationLink
+              onClick={this.onPageClick}
+              className="pagination-pages"
+            >
+              {this.props.pagination_number * 3 + 2}
+            </PaginationLink>
+          </PaginationItem>
+          <PaginationItem
+            className={`${
+              data && this.props.pagination_number * 3 + 3 > data.total_pages
+                ? "page-display-none"
+                : false
+            }`}>
+            <PaginationLink
+              onClick={this.onPageClick}
+              className="pagination-pages"
+            >
+              {this.props.pagination_number * 3 + 3}
+            </PaginationLink>
+          </PaginationItem>
+
+          <PaginationItem
+            className={`${
+              data && this.props.page >= data.total_pages - 2
+                ? "page-display-none"
+                : false
             }`}
           >
             <PaginationLink
@@ -155,14 +187,17 @@ const mapStoreToProps = store => {
     info: store.info,
     isFetching: store.isFetching,
     error: store.error,
-    page: store.page
+    page: store.page,
+    pagination_number: store.pagination_number
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     getMoviesInfoAction: page => dispatch(getMoviesInfo(page)),
-    changePageNumberAction: page => dispatch(changePageNumber(page))
+    changePageNumberAction: page => dispatch(changePageNumber(page)),
+    changePaginationNumberAction: pagination =>
+      dispatch(changePaginationNumber(pagination))
   };
 };
 
