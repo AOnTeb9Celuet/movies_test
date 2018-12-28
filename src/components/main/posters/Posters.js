@@ -35,24 +35,31 @@ class Poster extends Component {
       changePageNumberAction(1);
       changePaginationNumberAction(0);
       getMoviesInfoAction(1);
-    } else if (
-      e.currentTarget.innerText === "Prev" &&
-      page !== 1
-    ) {
+    } else if (e.currentTarget.innerText === "Prev" && page !== 1) {
       changePaginationNumberAction(this.props.pagination_number - 1);
     } else if (
       e.currentTarget.innerText === "Next" &&
-      page !== this.props.info.data.total_pages
+      pagination_number !== Math.floor(this.props.info.data.total_pages / 3)
     ) {
-      changePaginationNumberAction(pagination_number + 1)
-    } else if (e.currentTarget.innerText === "Last" && this.props.info.data.total_pages % 3) {
+      changePaginationNumberAction(pagination_number + 1);
+    } else if (
+      e.currentTarget.innerText === "Last" &&
+      this.props.info.data.total_pages % 3
+    ) {
       changePageNumberAction(this.props.info.data.total_pages);
       getMoviesInfoAction(this.props.info.data.total_pages);
-      changePaginationNumberAction(Math.floor(this.props.info.data.total_pages / 3))
-    } else if (e.currentTarget.innerText === "Last" && !this.props.info.data.total_pages % 3) {
+      changePaginationNumberAction(
+        Math.floor(this.props.info.data.total_pages / 3)
+      );
+    } else if (
+      e.currentTarget.innerText === "Last" &&
+      !this.props.info.data.total_pages % 3
+    ) {
       changePageNumberAction(this.props.info.data.total_pages);
       getMoviesInfoAction(this.props.info.data.total_pages);
-      changePaginationNumberAction(Math.floor(this.props.info.data.total_pages / 3 - 1))
+      changePaginationNumberAction(
+        Math.floor(this.props.info.data.total_pages / 3 - 1)
+      );
     } else {
       const pageNum = +e.currentTarget.innerText;
       changePageNumberAction(pageNum);
@@ -145,7 +152,8 @@ class Poster extends Component {
               data && this.props.pagination_number * 3 + 3 > data.total_pages
                 ? "page-display-none"
                 : false
-            }`}>
+            }`}
+          >
             <PaginationLink
               onClick={this.onPageClick}
               className="pagination-pages"
@@ -156,7 +164,9 @@ class Poster extends Component {
 
           <PaginationItem
             className={`${
-              data && this.props.page >= data.total_pages - 2
+              data &&
+              this.props.pagination_number >=
+                Math.floor(this.props.info.data.total_pages / 3)
                 ? "page-display-none"
                 : false
             }`}
