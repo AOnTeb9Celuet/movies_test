@@ -15,15 +15,15 @@ library.add(faArrowAltCircleLeft);
 library.add(faArrowAltCircleRight);
 
 class MovieModal extends Component {
-  
   componentDidMount() {
-    const pathname = this.props.location.pathname
+    const pathname = this.props.location.pathname;
     this.props.getMovieDetailsAction(pathname);
   }
 
   componentWillUnmount() {
-    this.props.clearMovieDetailsAction()
+    this.props.clearMovieDetailsAction();
   }
+
   render() {
     if (!this.props.details.data) {
       return <div>...Loading</div>;
@@ -38,7 +38,21 @@ class MovieModal extends Component {
       overview
     } = this.props.details.data;
     const posterPath = `http://image.tmdb.org/t/p/w342${poster_path}`;
-    const releaseDate = release_date && release_date.slice(0, 4)
+    const releaseDate = release_date && release_date.slice(0, 4);
+
+    const addToLocalStorage = () => {
+      const { data } = this.props.details;
+      if(!JSON.parse(localStorage.getItem('main-arr2'))) {
+        const oldArr = JSON.parse(localStorage.getItem('main-arr'))
+        const newArr = oldArr.concat(data)
+            console.log('newArr', newArr)
+        localStorage.setItem('main-arr2', JSON.stringify(newArr))
+      } else {
+        const oldArr = JSON.parse(localStorage.getItem('main-arr2'))
+        const newArr = oldArr.concat(data)
+        localStorage.setItem('main-arr2', JSON.stringify(newArr))
+      }
+    }
 
     return (
       <div className="movie-modal">
@@ -58,9 +72,10 @@ class MovieModal extends Component {
               </p>
             </Link>
           </Col>
+
           <Col className="d-flex justify-content-end">
             <p className="button-right">
-              <span>Next Movie{" "}</span>
+              <span>Next Movie </span>
               <FontAwesomeIcon
                 icon="arrow-alt-circle-right"
                 className="arrow-right"
@@ -69,7 +84,7 @@ class MovieModal extends Component {
           </Col>
         </Row>
         <Row noGutters>
-          <Col lg="4" xs='6' className="d-flex justify-content-center info-col">
+          <Col lg="4" xs="6" className="d-flex justify-content-center info-col">
             <img
               src={posterPath}
               alt="poster"
@@ -77,8 +92,11 @@ class MovieModal extends Component {
             />
           </Col>
 
-          <Col lg="8" xs='6'>
-            <p className="d-flex justify-content-end favorite-but">
+          <Col lg="8" xs="6">
+            <p
+              onClick={addToLocalStorage}
+              className="d-flex justify-content-end favorite-but"
+            >
               <span>Add to favorite</span>
             </p>
             <p className="info-title">
@@ -108,7 +126,7 @@ const mapStoreToProps = store => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getMovieDetailsAction: (pathname) => dispatch(getMovieDetails(pathname)),
+    getMovieDetailsAction: pathname => dispatch(getMovieDetails(pathname)),
     clearMovieDetailsAction: () => dispatch(clearMovieDetails())
   };
 };

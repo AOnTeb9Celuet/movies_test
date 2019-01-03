@@ -1,5 +1,6 @@
 import React from "react";
-import { Navbar, Container, Row, Col, Nav, NavItem, NavLink } from "reactstrap";
+import { Navbar, Container, Row, Col, Nav, NavItem, NavLink, } from "reactstrap";
+import {Link} from 'react-router-dom'
 import "./Header.css";
 import { MyAccount } from "./my-account/MyAccount";
 
@@ -34,8 +35,11 @@ export const Header = () => {
                 </NavItem>
               </Nav>
             </Col>
+
             <Col className="d-flex justify-content-end">
-              <MyAccount />
+              <Link to='favourites'>
+                <MyAccount />
+              </Link>
             </Col>
           </Row>
         </Container>

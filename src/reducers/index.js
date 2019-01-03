@@ -7,7 +7,6 @@ import {
     MOVIE_DETAILS_SUCCESS, 
     MOVIE_DETAILS_CLEAR,
     CHANGE_PAGE_NUMBER,
-    CHANGE_PAGINATION_NUMBER,
 } from '../constants/constants';
 
 export const initialState = {
@@ -43,9 +42,6 @@ export const rootReducer = (state = initialState, action) => {
 
         case CHANGE_PAGE_NUMBER:
             return {...state, page: action.payload}
-
-        case CHANGE_PAGINATION_NUMBER:
-            return {...state, pagination_number: action.payload}
 
         default:
             return state

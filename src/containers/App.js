@@ -4,15 +4,20 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Header } from "../components/header/Header";
 import MovieModal from "../components/main/about-modal/MovieModal";
 import Poster from "../components/main/posters/Posters";
+import FavouriteList from "../components/main/favourites/FavouriteList";
 
 class App extends Component {
   render() {
+
+    localStorage.setItem("main-arr", JSON.stringify([]));
+
     return (
       <Router>
         <div className="app">
           <Switch>
             <WithHeaderRoute exact path="/" component={Poster} />
             <WithHeaderRoute path="/:id" component={MovieModal} />
+            <WithHeaderRoute path="/favourites" component={FavouriteList} />
           </Switch>
         </div>
       </Router>

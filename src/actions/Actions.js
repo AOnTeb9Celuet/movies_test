@@ -8,7 +8,6 @@ import {
   MOVIE_DETAILS_SUCCESS,
   MOVIE_DETAILS_CLEAR,
   CHANGE_PAGE_NUMBER,
-  CHANGE_PAGINATION_NUMBER
 } from "../constants/constants";
 
 export const getMoviesInfo = page => dispatch => {
@@ -56,12 +55,5 @@ export const changePageNumber = page => {
   return {
     type: CHANGE_PAGE_NUMBER,
     payload: page
-  };
-};
-
-export const changePaginationNumber = pagination => {
-  return {
-    type: CHANGE_PAGINATION_NUMBER,
-    payload: pagination
   };
 };
