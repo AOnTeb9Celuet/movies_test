@@ -18,6 +18,7 @@ class MovieModal extends Component {
   componentDidMount() {
     const pathname = this.props.location.pathname;
     this.props.getMovieDetailsAction(pathname);
+    
   }
 
   componentWillUnmount() {
@@ -45,14 +46,21 @@ class MovieModal extends Component {
       if(!JSON.parse(localStorage.getItem('main-arr2'))) {
         const oldArr = JSON.parse(localStorage.getItem('main-arr'))
         const newArr = oldArr.concat(data)
-            console.log('newArr', newArr)
         localStorage.setItem('main-arr2', JSON.stringify(newArr))
       } else {
-        const oldArr = JSON.parse(localStorage.getItem('main-arr2'))
-        const newArr = oldArr.concat(data)
-        localStorage.setItem('main-arr2', JSON.stringify(newArr))
-      }
+          let oldArr = JSON.parse(localStorage.getItem('main-arr2'));
+          console.log('oldArr before', oldArr)
+          const boolCheck = oldArr.map(obj => 
+            obj.id !== data.id ? true : false
+          )
+          console.log('boolCheck', boolCheck)
+          if(!boolCheck.includes(false)) {
+            oldArr = oldArr.concat(data)
+            localStorage.setItem('main-arr2', JSON.stringify(oldArr))
+          } return oldArr
+          
     }
+  }
 
     return (
       <div className="movie-modal">
