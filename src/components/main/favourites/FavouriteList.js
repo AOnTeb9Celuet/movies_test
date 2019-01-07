@@ -4,33 +4,30 @@ import { Container, Row, Col } from "reactstrap";
 import "./FavouriteList.css";
 
 class FavouriteList extends Component {
-
   state = {
-    updateLocalStorage: true,
-  }
+    updateLocalStorage: true
+  };
 
   render() {
     const favArr = JSON.parse(localStorage.getItem("main-arr"));
-    console.log('favArr', favArr);
+
+    if(!favArr[0]) {
+      return <div className = 'empty-favArr'>No favourite movies</div> 
+    }
 
     const updateLocalStorage = () => {
       this.setState({updateLocalStorage: !this.state.updateLocalStorage})
     }
 
     const removeFromLocalStorage = function(e) {
-      console.log(e)
       favArr.forEach((el, index) => {
         if(+el.id === +e) {
           favArr.splice(index, 1)
-          console.log(favArr)
         }
       })
       localStorage.setItem('main-arr', JSON.stringify(favArr))
-      console.log(localStorage)
       updateLocalStorage()
     }
-
-
     return (
       <Container fluid className="fav-main-page">
         <Row noGutters>
@@ -51,7 +48,10 @@ class FavouriteList extends Component {
               <Col md="9" xs="6">
                 <div className="d-flex justify-content-between align-items-start">
                   <p className="fav-title"> {f.title} </p>
-                  <p onClick = {() => removeFromLocalStorage(f.id)} className="fav-unfavourite">
+                  <p
+                    onClick={() => removeFromLocalStorage(f.id)}
+                    className="fav-unfavourite"
+                  >
                     {" "}
                     Unfavourite{" "}
                   </p>

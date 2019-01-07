@@ -35,11 +35,13 @@ class MovieModal extends Component {
       release_date,
       vote_average,
       adult,
-      overview
+      overview,
+      id
     } = this.props.details.data;
     const posterPath = `http://image.tmdb.org/t/p/w342${poster_path}`;
     const releaseDate = release_date && release_date.slice(0, 4);
 
+    //Favoutite button onCLick function
     const addToLocalStorage = () => {
       const { data } = this.props.details;
 
@@ -47,7 +49,6 @@ class MovieModal extends Component {
         const oldArr = JSON.parse(localStorage.getItem("empty-arr"));
         const newArr = oldArr.concat(data);
         localStorage.setItem("main-arr", JSON.stringify(newArr));
-        
       } else {
         let oldArr = JSON.parse(localStorage.getItem("main-arr"));
         const boolArr = oldArr.map(obj => (obj.id !== data.id ? true : false));
@@ -55,8 +56,9 @@ class MovieModal extends Component {
         if (!boolArr.includes(false)) {
           oldArr = oldArr.concat(data);
           localStorage.setItem("main-arr", JSON.stringify(oldArr));
+        } else {
+          return oldArr;
         }
-        return oldArr;
       }
     };
 
@@ -100,7 +102,7 @@ class MovieModal extends Component {
 
           <Col lg="8" xs="6">
             <p
-              onClick={addToLocalStorage}
+              onClick={() => addToLocalStorage(id)}
               className="d-flex justify-content-end favorite-but"
             >
               <span>Add to favorite</span>
