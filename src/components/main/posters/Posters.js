@@ -80,7 +80,6 @@ const mapStoreToProps = store => {
     isFetching: store.isFetching,
     error: store.error,
     page: store.page,
-    pagination_number: store.pagination_number
   };
 };
 

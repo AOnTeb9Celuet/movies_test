@@ -18,7 +18,6 @@ class MovieModal extends Component {
   componentDidMount() {
     const pathname = this.props.location.pathname;
     this.props.getMovieDetailsAction(pathname);
-    
   }
 
   componentWillUnmount() {
@@ -43,24 +42,23 @@ class MovieModal extends Component {
 
     const addToLocalStorage = () => {
       const { data } = this.props.details;
-      if(!JSON.parse(localStorage.getItem('main-arr2'))) {
-        const oldArr = JSON.parse(localStorage.getItem('main-arr'))
-        const newArr = oldArr.concat(data)
-        localStorage.setItem('main-arr2', JSON.stringify(newArr))
+
+      if (!JSON.parse(localStorage.getItem("main-arr"))) {
+        const oldArr = JSON.parse(localStorage.getItem("empty-arr"));
+        const newArr = oldArr.concat(data);
+        localStorage.setItem("main-arr", JSON.stringify(newArr));
+        
       } else {
-          let oldArr = JSON.parse(localStorage.getItem('main-arr2'));
-          console.log('oldArr before', oldArr)
-          const boolCheck = oldArr.map(obj => 
-            obj.id !== data.id ? true : false
-          )
-          console.log('boolCheck', boolCheck)
-          if(!boolCheck.includes(false)) {
-            oldArr = oldArr.concat(data)
-            localStorage.setItem('main-arr2', JSON.stringify(oldArr))
-          } return oldArr
-          
-    }
-  }
+        let oldArr = JSON.parse(localStorage.getItem("main-arr"));
+        const boolArr = oldArr.map(obj => (obj.id !== data.id ? true : false));
+
+        if (!boolArr.includes(false)) {
+          oldArr = oldArr.concat(data);
+          localStorage.setItem("main-arr", JSON.stringify(oldArr));
+        }
+        return oldArr;
+      }
+    };
 
     return (
       <div className="movie-modal">

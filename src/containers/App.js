@@ -8,16 +8,15 @@ import FavouriteList from "../components/main/favourites/FavouriteList";
 
 class App extends Component {
   render() {
-
-    localStorage.setItem("main-arr", JSON.stringify([]));
+    localStorage.setItem("empty-arr", JSON.stringify([]));
 
     return (
       <Router>
         <div className="app">
           <Switch>
+            <WithHeaderRoute path="/favourites" component={FavouriteList} />
             <WithHeaderRoute exact path="/" component={Poster} />
             <WithHeaderRoute path="/:id" component={MovieModal} />
-            <WithHeaderRoute path="/favourites" component={FavouriteList} />
           </Switch>
         </div>
       </Router>

@@ -1,0 +1,45 @@
+.fav-main-page {
+  padding: 0 55px 0;
+}
+
+.fav-text-p {
+  padding: 30px 0 0 0;
+  font-size: 40px;
+  color: #676a78;
+  margin: 0;
+}
+
+.fav-arr-row {
+  padding: 30px 0 10px;
+}
+
+.fav-poster {
+}
+
+.fav-title {
+  color: #58565b;
+  line-height: 40px;
+  font-size: 40px;
+  font-weight: 600;
+  margin: 0;
+  padding-left: 40px;
+}
+
+.fav-unfavourite {
+  color: #58565b;
+  line-height: 30px;
+  font-size: 30px;
+  margin: -10px 0 0 0;
+  padding: 7px;
+  border: 2px solid #908c97;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.fav-overview {
+  color: #5d5b60;
+  font-size: 22px;
+  padding: 40px 0 0 40px;
+  margin: 0;
+  font-weight: 500;
+}
