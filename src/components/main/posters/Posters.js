@@ -51,24 +51,24 @@ class Poster extends Component {
             </Row>
           </Container>
         </div>
-          <Container fluid>
-            <Pagination
-              activePage={data && this.props.page}
-              itemsCountPerPage={1}
-              totalItemsCount={data && data.total_pages}
-              pageRangeDisplayed={3}
-              onChange={this.onPageClick}
-              firstPageText = 'First'
-              lastPageText = 'Last'
-              prevPageText = 'Prev'
-              nextPageText = 'Next'
-              innerClass = 'pagination'
-              linkClass = 'pagination-pages'
-              linkClassFirst = 'pagination-link-first'
-              linkClassLast = 'pagination-link-last'
-              activeLinkClass = 'pagination-link-active'
-            />
-          </Container>
+        <Container fluid>
+          <Pagination
+            activePage={data && this.props.page}
+            itemsCountPerPage={1}
+            totalItemsCount={data && data.total_pages}
+            pageRangeDisplayed={3}
+            onChange={this.onPageClick}
+            firstPageText="First"
+            lastPageText="Last"
+            prevPageText="Prev"
+            nextPageText="Next"
+            innerClass="pagination"
+            linkClass="pagination-pages"
+            linkClassFirst="pagination-link-first"
+            linkClassLast="pagination-link-last"
+            activeLinkClass="pagination-link-active"
+          />
+        </Container>
       </Container>
     );
   }
@@ -79,7 +79,7 @@ const mapStoreToProps = store => {
     info: store.info,
     isFetching: store.isFetching,
     error: store.error,
-    page: store.page,
+    page: store.page
   };
 };
 

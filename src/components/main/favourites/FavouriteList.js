@@ -9,10 +9,10 @@ class FavouriteList extends Component {
   };
 
   render() {
-    const favArr = JSON.parse(localStorage.getItem("main-arr"));
+    let favArr = JSON.parse(localStorage.getItem("main-arr"));
 
     if(!favArr[0]) {
-      return <div className = 'empty-favArr'>No favourite movies</div> 
+      return <div className = 'empty-favArr'>No favorite movies</div> 
     }
 
     const updateLocalStorage = () => {
@@ -20,11 +20,7 @@ class FavouriteList extends Component {
     }
 
     const removeFromLocalStorage = function(e) {
-      favArr.forEach((el, index) => {
-        if(+el.id === +e) {
-          favArr.splice(index, 1)
-        }
-      })
+      favArr = favArr.filter(el => el.id !== e)
       localStorage.setItem('main-arr', JSON.stringify(favArr))
       updateLocalStorage()
     }
@@ -32,7 +28,7 @@ class FavouriteList extends Component {
       <Container fluid className="fav-main-page">
         <Row noGutters>
           <Col>
-            <p className="fav-text-p"> My Favourite </p>
+            <p className="fav-text-p"> My Favorite </p>
           </Col>
         </Row>
         {favArr.map(f => {
@@ -53,7 +49,7 @@ class FavouriteList extends Component {
                     className="fav-unfavourite"
                   >
                     {" "}
-                    Unfavourite{" "}
+                    Remove{" "}
                   </p>
                 </div>
                 <p className="fav-overview"> {f.overview} </p>
