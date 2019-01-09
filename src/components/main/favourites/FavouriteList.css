@@ -1,10 +1,10 @@
 .fav-main-page {
-  padding: 0 55px 0;
+  padding: 0 20px 0 10px;
 }
 
 .fav-text-p {
-  padding: 30px 0 0 0;
-  font-size: 40px;
+  padding: 15px 0 0 0;
+  font-size: 2em;
   color: #676a78;
   margin: 0;
 }
@@ -13,24 +13,28 @@
   padding: 30px 0 10px;
 }
 
-.fav-poster {
+.fav-title-but {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-left: 40px;
 }
 
 .fav-title {
   color: #58565b;
-  line-height: 40px;
+  line-height: 1.3em;
   font-size: 40px;
   font-weight: 600;
   margin: 0;
-  padding-left: 40px;
+  font-size: 40px;
 }
 
 .fav-unfavourite {
   color: #58565b;
   line-height: 30px;
   font-size: 30px;
-  margin: -10px 0 0 0;
-  padding: 7px;
+  padding: 5px;
   border: 2px solid #908c97;
   border-radius: 7px;
   cursor: pointer;
@@ -39,14 +43,54 @@
 .fav-overview {
   color: #5d5b60;
   font-size: 22px;
-  padding: 40px 0 0 40px;
+  padding: 30px 0 0 40px;
   margin: 0;
   font-weight: 500;
 }
 
 .empty-favArr {
   padding: 30px 0 0 50px;
-  font-size: 40px;
+  font-size: 2em;
   color: #676a78;
   margin: 0;
+}
+
+@media (max-width: 767.98px) {
+  .fav-title-but {
+    display: flex;
+    flex-direction: column !important;
+    justify-content: flex-start;
+    padding-left: 20px;
+  }
+  .fav-unfavourite {
+    margin-top: 30px;
+  }
+  .fav-overview {
+    font-size: 20px;
+    padding-left: 20px;
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .fav-title-but {
+    padding-left: 10px;
+    line-height: 1em;
+  }
+  .fav-title {
+    font-size: 7vw;
+  }
+  .fav-unfavourite {
+    font-size: 6vw;
+    margin-top: 10px;
+    padding: 0 5px;
+  }
+  .fav-overview {
+    font-size: 3.5vw;
+    padding: 0 0 0 10px;
+  }
+  .empty-favArr {
+    padding: 15px 0 0 10px;
+    
+  }
 }

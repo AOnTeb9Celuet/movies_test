@@ -45,7 +45,7 @@ a:hover {
 .button-left {
   color: #474d59;
   padding: 30px 0 0 55px;
-  font-size: 30px;
+  font-size: 1.9em;
   text-decoration-line: none;
 }
 
@@ -56,7 +56,7 @@ a:hover {
 .button-right {
   color: #474d59;
   padding: 30px 55px 0 0;
-  font-size: 30px;
+  font-size: 1.9em;
 }
 
 .arrow-left {
@@ -69,7 +69,7 @@ a:hover {
 
 .poster-modal {
   padding: 0;
-  margin: 60px 0 0 0;;
+  margin: 60px 0 0 0;
   width: 90%;
   height: 100%;
   box-shadow: 0 0 50px #000000;
@@ -83,7 +83,7 @@ a:hover {
   justify-self: end;
   padding: 40px 50px 0 0;
   color: #000000;
-  font-size: 25px;
+  font-size: 2em;
   margin: 0;
 }
 
@@ -96,15 +96,14 @@ a:hover {
 }
 
 .info-title {
-  font-size: 3.75vw;
+  font-size: 2.6em;
   color: #f9fcfc;
   margin: 0 50px 0 0;
   padding: 0 0 5px 0;
 }
 
 .info-s-r-rd {
-
-  font-size: 2vw;
+  font-size: 1.3em;
   color: #f9fcfc;
   margin: 0 50px 0 0;
   padding: 0 50px 10px 0;
@@ -129,21 +128,20 @@ a:hover {
   padding: 10px 0;
   margin: 0 50px 0 0;
   border-bottom: 2px solid #000000;
-  font-size: 1.6vw;
+  font-size: 1em;
   color: #f9fcfc;
 }
 
 @media (max-width: 991.98px) {
   .poster-modal {
-
   }
 
   .info-title {
-    font-size: 30px;
+    font-size: 1.9em;
   }
 
   .info-s-r-rd {
-    font-size: 17px;
+    font-size: 1em;
   }
 }
 
@@ -151,9 +149,8 @@ a:hover {
   .info-title {
   }
   .info-s-r-rd {
-    font-size: 20px;
+    font-size: 1.25em;
     border: none;
-
   }
   .info-s {
     border: none;
@@ -167,39 +164,51 @@ a:hover {
     padding-left: 0;
   }
   .info-about {
-
   }
   .favorite-but-default {
     padding: 0 55px 0 0;
   }
   .favorite-but-default > span {
-    font-size: 15px;
+    font-size: 0.94em;
   }
   .poster-modal {
     margin-top: 30px;
   }
-  
+}
+
+@media (min-width: 768px) {
+  .info-br-class {
+    display: none;
+  }
 }
 
 @media (max-width: 575.98px) {
   .button-left {
     padding: 10px 0 0 15px;
-    font-size: 50px;
+    font-size: 3.125em;
   }
   .button-left > span {
     display: none;
   }
   .button-right {
     padding: 10px 15px 0 0;
-    font-size: 50px;
+    font-size: 3.125em;
   }
   .button-right > span {
     display: none;
   }
 
-  .favorite-but-default {
-    font-size: 15px;
-    padding-top: 0;
+  .favorite-but-default > span {
+    display: none;
+  }
+
+  .favorite-but-576 {
+    color: white;
+    font-size: 2em;
+    margin: 0;
+    padding-top: 5px;
+    cursor: pointer;
+    float: right;
   }
 
   .info-title {
@@ -212,30 +221,37 @@ a:hover {
     width: 90%;
     margin: 0;
   }
-  .favorite-but-default {
-    padding-right: 15px;
-  }
+
   .info-s-r-rd {
-    padding-right: 0;
-    font-size: 22px;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    font-size: 7vw;
     margin: 0;
-    line-height: 45px;
+    line-height: 1.2em;
+    font-weight: 100;
   }
 
   .info-title-576 {
     justify-self: center;
-    font-size: 11.8vw;
+    font-size: 10vw;
     color: #f9fcfc;
     margin: 0 0 0 15px;
-    padding: 30px 50px 5px 0;
-    border-bottom: 1px solid 
+    padding: 10px 50px 5px 0;
+    border-bottom: 1px solid;
   }
   .info-about-576 {
     padding: 20px 20px 20px 0;
     margin: 0 0 20px 15px;
-    border-bottom: 1px solid ;
+    border-bottom: 1px solid;
     font-size: 3.3vw;
     color: #f9fcfc;
+  }
+  .white-space {
+    white-space: normal;
+  }
+  .info-s-r-rd-values-576 {
+    font-weight: 500;
   }
 }
 
@@ -246,10 +262,10 @@ a:hover {
   .info-about-576 {
     display: none;
   }
-}
-
-@media (min-width: 768px) {
-  .br-class {
+  .s-r-rd-br-class {
+    display: none;
+  }
+  .favorite-but-576 {
     display: none;
   }
 }

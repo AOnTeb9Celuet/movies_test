@@ -11,19 +11,19 @@ class FavouriteList extends Component {
   render() {
     let favArr = JSON.parse(localStorage.getItem("main-arr"));
 
-    if(!favArr[0]) {
-      return <div className = 'empty-favArr'>No favorite movies</div> 
+    if (!favArr[0]) {
+      return <div className="empty-favArr">No favorite movies</div>;
     }
 
     const updateLocalStorage = () => {
-      this.setState({updateLocalStorage: !this.state.updateLocalStorage})
-    }
+      this.setState({ updateLocalStorage: !this.state.updateLocalStorage });
+    };
 
     const removeFromLocalStorage = function(e) {
-      favArr = favArr.filter(el => el.id !== e)
-      localStorage.setItem('main-arr', JSON.stringify(favArr))
-      updateLocalStorage()
-    }
+      favArr = favArr.filter(el => el.id !== e);
+      localStorage.setItem("main-arr", JSON.stringify(favArr));
+      updateLocalStorage();
+    };
     return (
       <Container fluid className="fav-main-page">
         <Row noGutters>
@@ -42,17 +42,17 @@ class FavouriteList extends Component {
                 />
               </Col>
               <Col md="9" xs="6">
-                <div className="d-flex justify-content-between align-items-start">
+                <div className="fav-title-but">
                   <p className="fav-title"> {f.title} </p>
                   <p
                     onClick={() => removeFromLocalStorage(f.id)}
                     className="fav-unfavourite"
                   >
                     {" "}
-                    Remove{" "}
+                    Unfavorite{" "}
                   </p>
                 </div>
-                <p className="fav-overview"> {f.overview} </p>
+                <p className="d-inline-block fav-overview"> {f.overview} </p>
               </Col>
             </Row>
           );
