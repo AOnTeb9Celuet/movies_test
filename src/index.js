@@ -4,14 +4,9 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./containers/App";
 import * as serviceWorker from "./serviceWorker";
-import { Provider } from "react-redux";
-import { store } from "./store/configureStore";
+import { mobxStore } from './store/MobxStore'
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById("root")
+ReactDOM.render(<App store = {mobxStore} />, document.getElementById("root")
 );
 
 serviceWorker.unregister();

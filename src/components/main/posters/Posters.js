@@ -2,24 +2,26 @@ import React, { Component } from "react";
 import { Col, Row, Container } from "reactstrap";
 import Pagination from "react-js-pagination";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { getMoviesInfo, changePageNumber } from "../../../actions/Actions";
+import { observer } from 'mobx-react';
+
 import "./Posters.css";
 
+@observer
 class Poster extends Component {
   componentDidMount() {
-    this.props.getMoviesInfoAction(this.props.page);
+    this.props.store.getMoviesInfo(this.props.store.page);
   }
 
   onPageClick = e => {
-    const { getMoviesInfoAction, changePageNumberAction } = this.props;
+    const { getMoviesInfo, changePageNumber } = this.props.store;
 
-    changePageNumberAction(e);
-    getMoviesInfoAction(e);
+    changePageNumber(e);
+    getMoviesInfo(e);
   };
 
   render() {
-    const { data } = this.props.info;
+    const { page } = this.props.store
+    const { data } = this.props.store.info;
 
     return (
       <Container fluid className="main-page">
@@ -53,7 +55,7 @@ class Poster extends Component {
         </div>
         <Container fluid>
           <Pagination
-            activePage={data && this.props.page}
+            activePage={data && page}
             itemsCountPerPage={1}
             totalItemsCount={data && data.total_pages}
             pageRangeDisplayed={3}
@@ -74,23 +76,4 @@ class Poster extends Component {
   }
 }
 
-const mapStoreToProps = store => {
-  return {
-    info: store.info,
-    isFetching: store.isFetching,
-    error: store.error,
-    page: store.page
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    getMoviesInfoAction: page => dispatch(getMoviesInfo(page)),
-    changePageNumberAction: page => dispatch(changePageNumber(page))
-  };
-};
-
-export default connect(
-  mapStoreToProps,
-  mapDispatchToProps
-)(Poster);
+export default Poster;

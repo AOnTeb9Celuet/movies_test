@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { getMovieDetails, clearMovieDetails } from "../../../actions/Actions";
+import { observer } from 'mobx-react';
 
 import "./MovieModal.css";
 
@@ -18,25 +17,26 @@ library.add(faArrowAltCircleRight);
 library.add(faPlusCircle)
 library.add(faTimesCircle)
 
+@observer
 class MovieModal extends Component {
   state = {
-    toggleRerender: true
+    toggleRerender: true,
   };
 
   componentDidMount() {
     const pathname = this.props.location.pathname;
-    this.props.getMovieDetailsAction(pathname);
+    this.props.store.getMovieDetails(pathname);
     if (!localStorage.getItem("main-arr")) {
       localStorage.setItem("main-arr", JSON.stringify([]));
     } else return false;
   }
 
   componentWillUnmount() {
-    this.props.clearMovieDetailsAction();
+    this.props.store.clearMovieDetails();
   }
 
   render() {
-    if (!this.props.details.data) {
+    if (!this.props.store.details.data) {
       return <div>...Loading</div>;
     }
 
@@ -48,7 +48,7 @@ class MovieModal extends Component {
       adult,
       overview,
       id
-    } = this.props.details.data;
+    } = this.props.store.details.data;
     const posterPath = `http://image.tmdb.org/t/p/w342${poster_path}`;
     const releaseDate = release_date && release_date.slice(0, 4);
 
@@ -63,7 +63,7 @@ class MovieModal extends Component {
 
     //Favoutite button onCLick function
     const addToLocalStorage = e => {
-      const { data } = this.props.details;
+      const { data } = this.props.store.details;
 
       let oldArr = JSON.parse(localStorage.getItem("main-arr"));
       const boolArr = oldArr.map(obj => (obj.id !== data.id ? true : false));
@@ -79,9 +79,10 @@ class MovieModal extends Component {
     };
 
     const checkFavBtnValue = (adapt) => {
+      const { data } = this.props.store.details
       const localStorageArr = JSON.parse(localStorage.getItem("main-arr"));
       const boolArr = localStorageArr.map(obj =>
-        obj.id !== this.props.details.data.id ? true : false
+        obj.id !== data.id ? true : false
       );
 
       if (boolArr.includes(false)) {
@@ -188,23 +189,4 @@ class MovieModal extends Component {
   }
 }
 
-const mapStoreToProps = store => {
-  return {
-    info: store.info,
-    details: store.details,
-    isFetching: store.isFetching,
-    error: store.error
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    getMovieDetailsAction: pathname => dispatch(getMovieDetails(pathname)),
-    clearMovieDetailsAction: () => dispatch(clearMovieDetails())
-  };
-};
-
-export default connect(
-  mapStoreToProps,
-  mapDispatchToProps
-)(MovieModal);
+export default MovieModal;

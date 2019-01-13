@@ -9,6 +9,8 @@
     "axios": "^0.18.0",
     "axios-action-creators": "^0.2.2",
     "bootstrap": "^4.2.1",
+    "mobx": "^5.8.0",
+    "mobx-react": "^5.4.3",
     "react": "^16.6.3",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.6.3",
@@ -45,5 +47,9 @@
     "lint-staged": "^8.1.0",
     "prettier": "^1.15.3",
     "redux-logger": "^3.0.6"
+  },
+  "babel": {
+    "presets": ["react-app"],
+    "plugins": [["@babel/plugin-proposal-decorators", { "legacy": true }]]
   }
 }

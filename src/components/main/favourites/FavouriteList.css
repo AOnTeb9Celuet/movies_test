@@ -1,5 +1,9 @@
 .fav-main-page {
-  padding: 0 20px 0 10px;
+  padding: 0 55px 0 55px;
+}
+
+.fav-poster {
+  width: 100%;
 }
 
 .fav-text-p {
@@ -56,6 +60,7 @@
 }
 
 @media (max-width: 767.98px) {
+
   .fav-title-but {
     display: flex;
     flex-direction: column !important;
@@ -73,6 +78,9 @@
 }
 
 @media (max-width: 575.98px) {
+  .fav-main-page {
+    padding: 0 15px;
+  }
   .fav-title-but {
     padding-left: 10px;
     line-height: 1em;
@@ -83,7 +91,7 @@
   .fav-unfavourite {
     font-size: 6vw;
     margin-top: 10px;
-    padding: 0 5px;
+    padding: 3px 5px;
   }
   .fav-overview {
     font-size: 3.5vw;
