@@ -8,7 +8,6 @@ import FavouriteList from "../components/main/favourites/FavouriteList";
 
 class App extends Component {
   render() {
-    console.log('Apps-props',this.props)
     return (
       <Router>
         <div className="app">

@@ -14,8 +14,9 @@ class Poster extends Component {
   }
 
   onPageClick = e => {
-    this.props.posterStore.changePageNumber(e);
-    this.props.posterStore.getMoviesInfo(e);
+    const { changePageNumber, getMoviesInfo } = this.props.posterStore
+    changePageNumber(e);
+    getMoviesInfo(e);
   };
 
   render() {
