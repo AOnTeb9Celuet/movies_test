@@ -2,26 +2,25 @@ import React, { Component } from "react";
 import { Col, Row, Container } from "reactstrap";
 import Pagination from "react-js-pagination";
 import { Link } from "react-router-dom";
-import { observer } from 'mobx-react';
+import { inject, observer } from "mobx-react";
 
 import "./Posters.css";
 
+@inject("posterStore")
 @observer
 class Poster extends Component {
   componentDidMount() {
-    this.props.store.getMoviesInfo(this.props.store.page);
+    this.props.posterStore.getMoviesInfo(this.props.posterStore.page);
   }
 
   onPageClick = e => {
-    const { getMoviesInfo, changePageNumber } = this.props.store;
-
-    changePageNumber(e);
-    getMoviesInfo(e);
+    this.props.posterStore.changePageNumber(e);
+    this.props.posterStore.getMoviesInfo(e);
   };
 
   render() {
-    const { page } = this.props.store
-    const { data } = this.props.store.info;
+    const { page } = this.props.posterStore;
+    const { data } = this.props.posterStore.info;
 
     return (
       <Container fluid className="main-page">

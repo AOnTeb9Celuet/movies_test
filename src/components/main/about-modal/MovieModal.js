@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 
 import "./MovieModal.css";
 
@@ -17,6 +17,7 @@ library.add(faArrowAltCircleRight);
 library.add(faPlusCircle)
 library.add(faTimesCircle)
 
+@inject('modalStore')
 @observer
 class MovieModal extends Component {
   state = {
@@ -25,18 +26,18 @@ class MovieModal extends Component {
 
   componentDidMount() {
     const pathname = this.props.location.pathname;
-    this.props.store.getMovieDetails(pathname);
+    this.props.modalStore.getMovieDetails(pathname);
     if (!localStorage.getItem("main-arr")) {
       localStorage.setItem("main-arr", JSON.stringify([]));
     } else return false;
   }
 
   componentWillUnmount() {
-    this.props.store.clearMovieDetails();
+    this.props.modalStore.clearMovieDetails();
   }
 
   render() {
-    if (!this.props.store.details.data) {
+    if (!this.props.modalStore.details.data) {
       return <div>...Loading</div>;
     }
 
@@ -48,7 +49,7 @@ class MovieModal extends Component {
       adult,
       overview,
       id
-    } = this.props.store.details.data;
+    } = this.props.modalStore.details.data;
     const posterPath = `http://image.tmdb.org/t/p/w342${poster_path}`;
     const releaseDate = release_date && release_date.slice(0, 4);
 
@@ -63,7 +64,7 @@ class MovieModal extends Component {
 
     //Favoutite button onCLick function
     const addToLocalStorage = e => {
-      const { data } = this.props.store.details;
+      const { data } = this.props.modalStore.details;
 
       let oldArr = JSON.parse(localStorage.getItem("main-arr"));
       const boolArr = oldArr.map(obj => (obj.id !== data.id ? true : false));
@@ -79,7 +80,7 @@ class MovieModal extends Component {
     };
 
     const checkFavBtnValue = (adapt) => {
-      const { data } = this.props.store.details
+      const { data } = this.props.modalStore.details
       const localStorageArr = JSON.parse(localStorage.getItem("main-arr"));
       const boolArr = localStorageArr.map(obj =>
         obj.id !== data.id ? true : false
