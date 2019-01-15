@@ -1,6 +1,6 @@
 import React from "react";
 import "./MyAccount.css";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,10 +10,10 @@ library.add(faAngleDown);
 
 export const MyAccount = () => {
   return (
-    <Link to = {'/favourites'}>
+    <Link to={"/favourites"}>
       <div className="align-items-center border main-button">
         <p className="main-button-p">
-          <span className = 'main-button-text'>My Account{" "}</span>
+          <span className="main-button-text">My Account </span>
           <FontAwesomeIcon icon="angle-down" className="angle-down-style" />
         </p>
       </div>

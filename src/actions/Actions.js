@@ -2,12 +2,12 @@ import axios from "axios";
 import {
   MOVIES_INFO_REQUEST,
   MOVIES_INFO_SUCCESS,
-  MOVIES_INFO_FAIL,
-  MOVIE_DETAILS_FAIL,
+  MOVIES_INFO_ERROR,
+  MOVIE_DETAILS_ERROR,
   MOVIE_DETAILS_REQUEST,
   MOVIE_DETAILS_SUCCESS,
   MOVIE_DETAILS_CLEAR,
-  CHANGE_PAGE_NUMBER,
+  MOVIE_CHANGE_PAGE_NUMBER,
 } from "../constants/constants";
 
 export const getMoviesInfo = page => dispatch => {
@@ -23,7 +23,7 @@ export const getMoviesInfo = page => dispatch => {
       dispatch({ type: MOVIES_INFO_SUCCESS, payload: response });
     })
     .catch(err => {
-      dispatch({ type: MOVIES_INFO_FAIL, payload: err });
+      dispatch({ type: MOVIES_INFO_ERROR, payload: err });
     });
 };
 
@@ -40,7 +40,7 @@ export const getMovieDetails = pathname => dispatch => {
       dispatch({ type: MOVIE_DETAILS_SUCCESS, payload: response });
     })
     .catch(err => {
-      dispatch({ type: MOVIE_DETAILS_FAIL, payload: err });
+      dispatch({ type: MOVIE_DETAILS_ERROR, payload: err });
     });
 };
 
@@ -53,7 +53,7 @@ export const clearMovieDetails = () => {
 
 export const changePageNumber = page => {
   return {
-    type: CHANGE_PAGE_NUMBER,
+    type: MOVIE_CHANGE_PAGE_NUMBER,
     payload: page
   };
 };

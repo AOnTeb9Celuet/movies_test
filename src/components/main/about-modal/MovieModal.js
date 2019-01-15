@@ -8,15 +8,19 @@ import "./MovieModal.css";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
-import { faArrowAltCircleRight } from "@fortawesome/free-solid-svg-icons";
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowAltCircleLeft,
+  faArrowAltCircleRight,
+  faPlusCircle,
+  faTimesCircle
+} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faArrowAltCircleLeft);
-library.add(faArrowAltCircleRight);
-library.add(faPlusCircle)
-library.add(faTimesCircle)
+  [
+    faArrowAltCircleLeft,
+    faArrowAltCircleRight,
+    faPlusCircle,
+    faTimesCircle
+  ].forEach(el => library.add(el));
 
 class MovieModal extends Component {
   state = {
@@ -34,6 +38,48 @@ class MovieModal extends Component {
   componentWillUnmount() {
     this.props.clearMovieDetailsAction();
   }
+
+  toggleRerender = () => {
+    this.setState({ toggleRerender: !this.state.toggleRerender });
+  };
+
+  //Favoutite button onCLick function
+  addToLocalStorage = e => {
+    const { data } = this.props.details;
+
+    let oldArr = JSON.parse(localStorage.getItem("main-arr"));
+    const boolArr = oldArr.map(obj => (obj.id !== data.id ? true : false));
+
+    if (!boolArr.includes(false)) {
+      oldArr = oldArr.concat(data);
+      localStorage.setItem("main-arr", JSON.stringify(oldArr));
+    } else {
+      oldArr = oldArr.filter(el => el.id !== e);
+      localStorage.setItem("main-arr", JSON.stringify(oldArr));
+    }
+    this.toggleRerender();
+  };
+
+  checkFavBtnValue = adapt => {
+    const localStorageArr = JSON.parse(localStorage.getItem("main-arr"));
+    const boolArr = localStorageArr.map(obj =>
+      obj.id !== this.props.details.data.id ? true : false
+    );
+
+    if (boolArr.includes(false)) {
+      if (adapt) {
+        return "Remove";
+      } else {
+        return <FontAwesomeIcon icon="times-circle" />;
+      }
+    } else {
+      if (!adapt) {
+        return <FontAwesomeIcon icon="plus-circle" />;
+      } else {
+        return "Add";
+      }
+    }
+  };
 
   render() {
     if (!this.props.details.data) {
@@ -57,54 +103,12 @@ class MovieModal extends Component {
       return `${dateReleaseDate.slice(4)}`;
     };
 
-    const toggleRerender = () => {
-      this.setState({ toggleRerender: !this.state.toggleRerender });
-    };
-
-    //Favoutite button onCLick function
-    const addToLocalStorage = e => {
-      const { data } = this.props.details;
-
-      let oldArr = JSON.parse(localStorage.getItem("main-arr"));
-      const boolArr = oldArr.map(obj => (obj.id !== data.id ? true : false));
-
-      if (!boolArr.includes(false)) {
-        oldArr = oldArr.concat(data);
-        localStorage.setItem("main-arr", JSON.stringify(oldArr));
-      } else {
-        oldArr = oldArr.filter(el => el.id !== e);
-        localStorage.setItem("main-arr", JSON.stringify(oldArr));
-      }
-      toggleRerender();
-    };
-
-    const checkFavBtnValue = (adapt) => {
-      const localStorageArr = JSON.parse(localStorage.getItem("main-arr"));
-      const boolArr = localStorageArr.map(obj =>
-        obj.id !== this.props.details.data.id ? true : false
-      );
-
-      if (boolArr.includes(false)) {
-        if(adapt) {
-          return "Remove";
-        } else {
-          return <FontAwesomeIcon icon = "times-circle" />
-        }
-      } else {
-          if(!adapt) {
-            return <FontAwesomeIcon icon = "plus-circle" />
-          } else {
-            return "Add";
-          }
-        }
-      }
-
     return (
       <div className="movie-modal">
         <div
           className="background-img"
           style={{ backgroundImage: `url(${posterPath})` }}
-        />{" "}
+        />
         <Row noGutters>
           <Col className="d-flex justify-content-start">
             <Link to={"/"}>
@@ -140,8 +144,8 @@ class MovieModal extends Component {
           {/* Main favorite button */}
           <Col md="8" xs="6" className="movie-info-col">
             <p className="d-flex justify-content-end favorite-but-default">
-              <span onClick={() => addToLocalStorage(id)}>
-                {checkFavBtnValue(true)}
+              <span onClick={() => this.addToLocalStorage(id)}>
+                {this.checkFavBtnValue(true)}
               </span>
             </p>
 
@@ -150,15 +154,17 @@ class MovieModal extends Component {
             </p>
 
             <p className="info-s-r-rd justify-content-start">
-                  <span className="info-s white-space">
-                    Score: 
-                    <span onClick={() => addToLocalStorage(id)} className = 'favorite-but-576'>
-                      {checkFavBtnValue()}
-                    </span> <br className="s-r-rd-br-class" />
-                    <span className="info-s-r-rd-values-576">
-                      {vote_average}
-                    </span>
-                  </span>
+              <span className="info-s white-space">
+                Score:
+                <span
+                  onClick={() => this.addToLocalStorage(id)}
+                  className="favorite-but-576"
+                >
+                  {this.checkFavBtnValue()}
+                </span>
+                <br className="s-r-rd-br-class" />
+                <span className="info-s-r-rd-values-576">{vote_average}</span>
+              </span>
               <br className="info-br-class" />
               <span className="info-r white-space">
                 Rating: <br className="s-r-rd-br-class" />

@@ -1,12 +1,12 @@
 import { 
     MOVIES_INFO_REQUEST, 
     MOVIES_INFO_SUCCESS, 
-    MOVIES_INFO_FAIL, 
-    MOVIE_DETAILS_FAIL, 
+    MOVIES_INFO_ERROR, 
+    MOVIE_DETAILS_ERROR, 
     MOVIE_DETAILS_REQUEST, 
     MOVIE_DETAILS_SUCCESS, 
     MOVIE_DETAILS_CLEAR,
-    CHANGE_PAGE_NUMBER,
+    MOVIE_CHANGE_PAGE_NUMBER,
 } from '../constants/constants';
 
 export const initialState = {
@@ -25,7 +25,7 @@ export const rootReducer = (state = initialState, action) => {
         case MOVIES_INFO_SUCCESS:
             return {...state, isFetching: false, info: action.payload}
         
-        case MOVIES_INFO_FAIL:
+        case MOVIES_INFO_ERROR:
             return {...state, isFetching: false, error: action.payload.message}
         
         case MOVIE_DETAILS_REQUEST:
@@ -34,13 +34,13 @@ export const rootReducer = (state = initialState, action) => {
         case MOVIE_DETAILS_SUCCESS:
             return {...state, isFetching: false, details: action.payload}
 
-        case MOVIE_DETAILS_FAIL:
+        case MOVIE_DETAILS_ERROR:
             return {...state, isFetching: false, error: action.payload.message}
 
         case MOVIE_DETAILS_CLEAR:
             return {...state, details: action.payload}
 
-        case CHANGE_PAGE_NUMBER:
+        case MOVIE_CHANGE_PAGE_NUMBER:
             return {...state, page: action.payload}
 
         default:

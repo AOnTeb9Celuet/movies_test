@@ -8,22 +8,24 @@ class FavouriteList extends Component {
     updateLocalStorage: true
   };
 
-  render() {
+  updateLocalStorage = () => {
+    this.setState({ updateLocalStorage: !this.state.updateLocalStorage });
+  };
+
+  removeFromLocalStorage = function(e) {
     let favArr = JSON.parse(localStorage.getItem("main-arr"));
+    favArr = favArr.filter(el => el.id !== e);
+    localStorage.setItem("main-arr", JSON.stringify(favArr));
+    this.updateLocalStorage();
+  };
+
+  render() {
+    const favArr = JSON.parse(localStorage.getItem("main-arr"));
 
     if (!favArr[0]) {
       return <div className="empty-favArr">No favorite movies</div>;
     }
 
-    const updateLocalStorage = () => {
-      this.setState({ updateLocalStorage: !this.state.updateLocalStorage });
-    };
-
-    const removeFromLocalStorage = function(e) {
-      favArr = favArr.filter(el => el.id !== e);
-      localStorage.setItem("main-arr", JSON.stringify(favArr));
-      updateLocalStorage();
-    };
     return (
       <Container fluid className="fav-main-page">
         <Row noGutters>
@@ -45,7 +47,7 @@ class FavouriteList extends Component {
                 <div className="fav-title-but">
                   <p className="fav-title"> {f.title} </p>
                   <p
-                    onClick={() => removeFromLocalStorage(f.id)}
+                    onClick={() => this.removeFromLocalStorage(f.id)}
                     className="fav-unfavourite"
                   >
                     {" "}
