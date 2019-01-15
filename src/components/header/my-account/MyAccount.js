@@ -1,6 +1,6 @@
 import React from "react";
 import "./MyAccount.css";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
