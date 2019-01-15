@@ -2,19 +2,19 @@ import React, { Component } from "react";
 import { Col, Row, Container } from "reactstrap";
 import Pagination from "react-js-pagination";
 import { Link } from "react-router-dom";
-import { inject, observer } from "mobx-react";
+import { observer } from "mobx-react";
 
 import "./Posters.css";
 
-@inject("posterStore")
-@observer
+
+@observer(["posterStore"])
 class Poster extends Component {
   componentDidMount() {
     this.props.posterStore.getMoviesInfo(this.props.posterStore.page);
   }
 
   onPageClick = e => {
-    const { changePageNumber, getMoviesInfo } = this.props.posterStore
+    const { changePageNumber, getMoviesInfo } = this.props.posterStore;
     changePageNumber(e);
     getMoviesInfo(e);
   };

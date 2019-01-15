@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, autorun } from 'mobx';
 import axios from 'axios';
 
 class ModalStore {
@@ -22,5 +22,9 @@ class ModalStore {
 }
 
 const modalStore = new ModalStore()
+
+autorun(() => {
+    console.log('modalStore', modalStore.details)
+})
 
 export default modalStore

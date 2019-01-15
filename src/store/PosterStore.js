@@ -1,4 +1,4 @@
-import { observable, action } from "mobx";
+import { observable, action, autorun } from "mobx";
 import axios from "axios";
 
 class PosterStore {
@@ -21,5 +21,9 @@ class PosterStore {
 }
 
 const posterStore = (window.mobxStore = new PosterStore());
+
+autorun(() => {
+    console.log('posterStore', posterStore.page)
+})
 
 export default posterStore;

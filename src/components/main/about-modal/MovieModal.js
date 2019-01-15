@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 
 import "./MovieModal.css";
 
@@ -17,8 +17,7 @@ library.add(faArrowAltCircleRight);
 library.add(faPlusCircle)
 library.add(faTimesCircle)
 
-@inject('modalStore')
-@observer
+@observer(['modalStore'])
 class MovieModal extends Component {
   state = {
     toggleRerender: true,
