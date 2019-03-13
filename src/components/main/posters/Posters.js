@@ -1,21 +1,22 @@
 import React, { Component } from "react";
 import { Col, Row, Container } from "reactstrap";
 import Pagination from "react-js-pagination";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getMoviesInfo, changePageNumber } from "../../../actions/Actions";
+import Poster from './poster/Poster';
+
 import "./Posters.css";
 
-class Poster extends Component {
+class Posters extends Component {
   componentDidMount() {
-    this.props.getMoviesInfoAction(this.props.page);
+    this.props.getMoviesInfo(this.props.page);
   }
 
   onPageClick = e => {
-    const { getMoviesInfoAction, changePageNumberAction } = this.props;
+    const { getMoviesInfo, changePageNumber } = this.props;
 
-    changePageNumberAction(e);
-    getMoviesInfoAction(e);
+    changePageNumber(e);
+    getMoviesInfo(e);
   };
 
   render() {
@@ -31,23 +32,7 @@ class Poster extends Component {
         <div className="d-flex justify-content-between">
           <Container fluid>
             <Row className="justify-content-center poster-row">
-              {data &&
-                data.results.map(p => {
-                  return (
-                    <Col
-                      key={p.id}
-                      className="col-6 col-md-3 col-xl-2 poster-col"
-                    >
-                      <Link to={`/${p.id}`}>
-                        <img
-                          src={`http://image.tmdb.org/t/p/w342${p.poster_path}`}
-                          alt="poster"
-                          className="poster img-fluid"
-                        />
-                      </Link>
-                    </Col>
-                  );
-                })}
+              <Poster data={data}/>
             </Row>
           </Container>
         </div>
@@ -66,7 +51,7 @@ class Poster extends Component {
             linkClass="pagination-pages"
             linkClassFirst="pagination-link-first"
             linkClassLast="pagination-link-last"
-            activeLinkClass="pagination-link-active"
+    activeLinkClass="pagination-link-active"
           />
         </Container>
       </Container>
@@ -83,14 +68,12 @@ const mapStoreToProps = store => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getMoviesInfoAction: page => dispatch(getMoviesInfo(page)),
-    changePageNumberAction: page => dispatch(changePageNumber(page))
-  };
-};
+const mapDispatchToProps = {
+  getMoviesInfo,
+  changePageNumber
+}
 
 export default connect(
   mapStoreToProps,
   mapDispatchToProps
-)(Poster);
+)(Posters);

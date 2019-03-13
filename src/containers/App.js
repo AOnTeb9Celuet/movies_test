@@ -23,7 +23,8 @@ class App extends Component {
   }
 }
 
-const WithHeaderRoute = ({ component: Component, ...rest }) => {
+const WithHeaderRoute = ({component: Component, ...rest }) => {
+  console.log('rest', rest)
   return (
     <Route
       {...rest}

@@ -29,14 +29,14 @@ class MovieModal extends Component {
 
   componentDidMount() {
     const pathname = this.props.location.pathname;
-    this.props.getMovieDetailsAction(pathname);
+    this.props.getMovieDetails(pathname);
     if (!localStorage.getItem("main-arr")) {
       localStorage.setItem("main-arr", JSON.stringify([]));
     } else return false;
   }
 
   componentWillUnmount() {
-    this.props.clearMovieDetailsAction();
+    this.props.clearMovieDetails();
   }
 
   toggleRerender = () => {
@@ -203,12 +203,10 @@ const mapStoreToProps = store => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getMovieDetailsAction: pathname => dispatch(getMovieDetails(pathname)),
-    clearMovieDetailsAction: () => dispatch(clearMovieDetails())
-  };
-};
+const mapDispatchToProps = {
+  getMovieDetails,
+  clearMovieDetails
+}
 
 export default connect(
   mapStoreToProps,
